@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  mysql:
+    container_name: ${APP_NAME}_db
+    image: mysql:5
+    restart: always
+    environment:      
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ADMIN_PASSWORD}
+
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "${MYSQL_EXPOSE_PORT}:3306"
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+#    networks:
+#      - nestjs
+
+#if you add a new service like redis and need a network:
+#networks:
+#  nestjs-network:
+#    driver: bridge
