@@ -1,5 +1,5 @@
-import User from './user.interface';
+import { UserStatus } from './userStatus.interface';
 
 export {
-    User,
+    UserStatus,
 };

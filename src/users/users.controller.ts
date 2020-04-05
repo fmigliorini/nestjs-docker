@@ -31,8 +31,7 @@ export class UsersController {
   @UsePipes(ValidationPipe)
   @HttpCode(204)
   async create(@Body() createUserDto: CreateUserDto) {  
-    //return this.userService.create(createUserDto);
-    return createUserDto;
+    return this.userService.create(createUserDto);
   }
 
   // @Post()
