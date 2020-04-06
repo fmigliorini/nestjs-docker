@@ -11,6 +11,10 @@ export class UsersService {
         private userRepository: UserRepository,
     ) {}
     
+    async getUsers() {
+        return this.userRepository.getUsers();
+    }
+
     async createUser(createUserDto: CreateUserDto): Promise<User> {
         return this.userRepository.createUser(createUserDto);
     }

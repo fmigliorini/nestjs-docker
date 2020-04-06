@@ -5,6 +5,14 @@ import { UserStatus } from "./interfaces";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
+    async getUsers(): Promise<User[]> {
+        const query = await this.createQueryBuilder('user');
+
+        const users = query.getMany();
+
+        return users;
+    }
+    
     async createUser(createTaskDto: CreateUserDto): Promise<User> {
         const {
             firstName,

@@ -19,6 +19,11 @@ import { User } from './user.entity';
 export class UsersController {
   constructor(private userService: UsersService){}
 
+  @Get()
+  async getUsers() {
+    return this.userService.getUsers();
+  }
+
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id) : Promise<User> {
     return this.userService.getUserById(id);
