@@ -10,18 +10,20 @@ import {
   ValidationPipe,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto/';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import UserFilterDto from './dto/UserFilterDto';
 
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService){}
 
   @Get()
-  async getUsers() {
-    return this.userService.getUsers();
+  async getUsers(@Query(ValidationPipe) userFilterDto: UserFilterDto) {
+    return this.userService.getUsers(userFilterDto);
   }
 
   @Get(':id')

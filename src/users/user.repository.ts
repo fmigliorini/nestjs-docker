@@ -2,11 +2,25 @@ import { Repository, EntityRepository } from "typeorm";
 import { User } from "./user.entity";
 import { CreateUserDto, UpdateUserDto } from "./dto";
 import { UserStatus } from "./interfaces";
+import UserFilterDto from "./dto/UserFilterDto";
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-    async getUsers(): Promise<User[]> {
+    async getUsers(userFilterDto: UserFilterDto): Promise<User[]> {
+        const {search, isActive} = userFilterDto;
+
         const query = await this.createQueryBuilder('user');
+
+        if (isActive) {
+            query.andWhere('user.isActive = :isActive', {isActive});
+        }
+
+        if (search) {
+            query.andWhere(
+                'user.firstName LIKE :search OR user.lastName LIKE :search',
+                {search: `%${search}%`}
+            );
+        }
 
         const users = query.getMany();
 
