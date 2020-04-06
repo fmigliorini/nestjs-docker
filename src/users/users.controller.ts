@@ -9,8 +9,9 @@ import {
   UsePipes,
   ValidationPipe,
   Delete,
+  Put,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/';
+import { CreateUserDto, UpdateUserDto } from './dto/';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 
@@ -31,7 +32,15 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id ) : Promise<void> {
+  async delete(@Param('id', ParseIntPipe) id ): Promise<void> {
     return this.userService.deleteUser(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id', ParseIntPipe) id,
+    @Body() updateUserDto: UpdateUserDto
+  ): Promise<User> {
+    return this.userService.updateUser(id, updateUserDto);
   }
 }

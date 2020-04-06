@@ -1,6 +1,6 @@
 import { Repository, EntityRepository } from "typeorm";
 import { User } from "./user.entity";
-import { CreateUserDto } from "./dto";
+import { CreateUserDto, UpdateUserDto } from "./dto";
 import { UserStatus } from "./interfaces";
 
 @EntityRepository(User)
@@ -26,8 +26,14 @@ export class UserRepository extends Repository<User> {
 
         user.isActive = UserStatus.ACTIVE;
 
-        const save =await user.save();
-        console.log(save);
+        const save = await user.save();
+        
+        return save;
+    }
+
+    async updateUser(id: number, updateUserDto: UpdateUserDto) {
+        const user =  await this.save({...updateUserDto, id});
+        
         return user;
     }
 }
