@@ -58,4 +58,20 @@ export class UserRepository extends Repository<User> {
         
         return user;
     }
+
+    async validateUser(username: string, password: string) {
+        const query = await this.createQueryBuilder('user');
+
+        query.andWhere(
+            'user.username = :username AND user.password = :password',
+            {
+                username,
+                password,
+            }
+        );
+
+        const user = query.getOne();
+
+        return user;
+    }
 }
