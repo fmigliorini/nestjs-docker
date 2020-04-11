@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto';
@@ -41,6 +41,21 @@ export class UsersService {
     async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
         await this.getUserById(id);
         const user = await this.userRepository.updateUser(id, updateUserDto);
+        return user;
+    }
+
+    async findByUsername(username: string): Promise<Partial<User>> {
+        const user = await this.userRepository.findByUsername(username);
+        
+        if (!user) {
+            return null;
+        }
+
+        return user;
+    }
+
+    async findByUsernameAndPassword(username: string, password: string): Promise<Partial<User>> {
+        const user = await this.userRepository.findByUsernameAndPassword(username, password);
         return user;
     }
 }
