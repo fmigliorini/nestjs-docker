@@ -59,7 +59,7 @@ export class UserRepository extends Repository<User> {
         return user;
     }
 
-    async validateUser(username: string, password: string) {
+    async findByUsernameAndPassword(username: string, password: string) {
         const query = await this.createQueryBuilder('user');
 
         query.andWhere(

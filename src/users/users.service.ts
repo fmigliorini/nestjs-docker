@@ -53,4 +53,9 @@ export class UsersService {
 
         return user;
     }
+
+    async findByUsernameAndPassword(username: string, password: string): Promise<Partial<User>> {
+        const user = await this.userRepository.findByUsernameAndPassword(username, password);
+        return user;
+    }
 }
