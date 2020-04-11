@@ -74,4 +74,14 @@ export class UserRepository extends Repository<User> {
 
         return user;
     }
+
+    async findByUsername(username: String): Promise<User> {
+        const query = await this.createQueryBuilder('user');
+
+        query.andWhere('user.username = :username', { username });
+
+        const user = query.getOne();
+
+        return user;
+    }
 }

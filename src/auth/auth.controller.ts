@@ -9,7 +9,7 @@ export class AuthController {
     @Post('/login')
     @UsePipes(ValidationPipe)
     async login(@Body() localStrategyDto: LocalStrategyDto): Promise<any> {
-        return this.authService.validateUser(localStrategyDto);
+        // return this.authService.validateUser();
     }
     
 }

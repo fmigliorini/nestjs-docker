@@ -44,11 +44,13 @@ export class UsersService {
         return user;
     }
 
-    async validateUser(username: string, pwd: string): Promise<Partial<User>> {
-        const user = await this.userRepository.validateUser(username, pwd);
+    async findByUsername(username: string): Promise<Partial<User>> {
+        const user = await this.userRepository.findByUsername(username);
         
-        const {password, ...rest} = user;
+        if (!user) {
+            return null;
+        }
 
-        return rest;
+        return user;
     }
 }
